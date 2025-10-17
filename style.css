@@ -100,7 +100,7 @@ height: 40px;
 }
 .breadcrumbs li:not(:last-child)::after{
     content:">";
-    opacity: .6;
+    opacity: .8z;
     margin: 0  .25rem  .35rem;
     margin-bottom: 0px;
 }
