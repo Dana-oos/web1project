@@ -4,8 +4,174 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Service</title>
+    <script>
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-theme");
+    }
+});
+
+
+function handleSubmit() {
+
+    if (validateForm()) {
+        addServiceToStorage();
+    }
+  
+}
+
+
+
+
+function validateForm() {
+    let serviceName = document.getElementById('service-name').value;
+ let servicePrice = document.getElementById('service-price').value;
+       let serviceDesc = document.getElementById('service-desc').value;
+let servicePhoto = document.getElementById('service-photo').files[0];
+
+    
+    
+    if (!serviceName || !servicePrice || !serviceDesc) {
+        alert('Please fill in all fields!!');
+        return false;
+    }
+    
+ if (/^\d/.test(serviceName)) {
+           alert('Service name cannot start with numbers!!');
+ return false;
+    }
+    
+   
+ if (isNaN(servicePrice)) {
+        alert('Please enter a valid price (numbers only)!!');
+        return false;
+    }
+
+ 
+if (!servicePhoto) {
+    alert('Please upload a service photo!!');
+    return false;
+} else{
+
+let validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+
+if (!validImageTypes.includes(servicePhoto.type)) {
+    alert("Please upload only image files (JPEG, PNG, GIF, WebP)");
+    return false;
+}
+    
+   
+}
+
+ return true;
+
+}
+
+function addServiceToStorage() {
+
+
+    const serviceName = document.getElementById('service-name').value;
+const servicePrice = document.getElementById('service-price').value;
+     const serviceDesc = document.getElementById('service-desc').value;
+const servicePhoto = document.getElementById('service-photo').files[0];
+    
+
+
+    
+    let services = JSON.parse(localStorage.getItem('providerServices')) || [];
+
+    
+  
+    const newService = {
+    name: serviceName,
+              price: parseFloat(servicePrice),
+        description: serviceDesc,
+photo: servicePhoto.name
+    };
+
+    
+services.push(newService);
+    localStorage.setItem('providerServices', JSON.stringify(services));
+    
+
+
+
+   
+alert("Service " + serviceName + " added successfully!");   
+
+    document.querySelector('.add-service-form').reset(); 
+}
+
+
+
+
+
+
+
+
+
+
+    </script>
 <link rel="stylesheet" href="style.css">
     <style>
+
+
+/* dark mode theme*/
+
+body.dark-theme .title-with-lines {
+    color: #E3C99A; 
+}
+
+
+
+
+
+
+body.dark-theme .add-service-box {
+    background-color: #2a2a2a; 
+    border: 1px solid #555;
+    color: #eee;
+}
+
+
+body.dark-theme .add-service-form label {
+    color: #ddd;
+}
+
+
+body.dark-theme .add-service-form input,
+body.dark-theme .add-service-form textarea {
+    background-color: #1f1f1f;
+    border: 1px solid #777;
+    color: #eee;
+}
+
+
+body.dark-theme .add-service-form input::placeholder,
+body.dark-theme .add-service-form textarea::placeholder {
+    color: #aaa;
+}
+
+
+body.dark-theme .upload-section .upload-icon img {
+    filter: brightness(0.75);
+}
+
+
+
+body.dark-theme .add-service-form button:hover {
+    background-color: #a88a47;
+}
+
+
+
+
+
+
+
+
 
 
 .breadcrumbs {
@@ -185,7 +351,7 @@ color: #49361d;
     <header class="site-header">
         <div class="container nav">
             <div class="logo-area">
-                 <img src="/imgs/logo2.png" alt="Design Sphere logo">
+                 <img src="desgin_sphere_logoedited-removebg-png.png" alt="Design Sphere logo">
                  <h1 class="site-name">
                      <span class="black">Design</span><span class="gold">Sphere</span>
                  </h1>
@@ -216,7 +382,7 @@ color: #49361d;
 
 <nav class="breadcrumbs" aria-label="Breadcrumbs">
         <ol>
-           <li><a href="" >home page</a></li>
+           <li><a href="index.html" >home page</a></li>
              <li  aria-current="page"><a href ="ServiceProvider.html" > Provider's Dashboard </a> </li>
            <li> <a href ="AddNewService.html" class="current" >Add A New Sevice</a></li>
         </ol>
@@ -230,17 +396,17 @@ color: #49361d;
 
 <div class="add-service-box">
 
-  <form class="add-service-form" action="AddNewService.html" method="get">
+  <form class="add-service-form" action="AddNewService.html" method="get" >
     <div>
       <label for="service-name">Name:<br><br></label>
-      <input type="text" id="service-name" placeholder="Enter name of the service" required>
+      <input type="text" id="service-name" placeholder="Enter name of the service" >
     </div>
 
  <div class="upload-section">
   <label for="service-photo">Please Upload a photo :<br><br></label>
-  <input type="file" id="service-photo" name="service-photo" accept="image/*">
+  <input type="file" id="service-photo" name="service-photo" >
   <label for="service-photo" class="upload-icon">
-    <img src="/imgs/upload.png" alt="Upload Icon">
+    <img src="upload.png" alt="Upload Icon">
   </label>
 </div>
 
@@ -248,15 +414,16 @@ color: #49361d;
 
     <div>
       <label for="service-price">Price:<br><br></label>
-      <input type="text" id="service-price" placeholder="Enter price of the service" required>
+      <input type="text" id="service-price" placeholder="Enter price of the service" >
     </div>
 
     <div>
       <label for="service-desc">Service description:<br><br></label>
-      <textarea id="service-desc" rows="3" placeholder="Enter description of the service" required></textarea>
+      <textarea id="service-desc" rows="3" placeholder="Enter description of the service" ></textarea>
     </div>
 
-    <button type="submit">Submit</button>
+    <button type="button" onclick="handleSubmit()">Submit</button>
+   
   </form>
 </div>
 
@@ -268,7 +435,7 @@ color: #49361d;
   <div class="footer-container">
     <div class="footer-left">
       <h3>Contact Us</h3>
-      <p>📞 +966 000000000</p>
+      <p>📞 +966 565212266</p>
       <p>✉️ info@designsphere.com</p>
     </div>
 
@@ -279,9 +446,9 @@ color: #49361d;
     <div class="footer-right">
       <h3>Follow Us</h3>
       <div class="social-icons">
-           <a href="#"><img src="/imgs/instagram.png" alt="Instagram"></a>
-        <a href="#"><img src="/imgs/X.png" alt="X"></a>
-        <a href="#"><img src="/imgs/Facebook.png" alt="Facebook"></a>
+           <a href="#"><img src="instagram.png" alt="Instagram"></a>
+        <a href="#"><img src="X.png" alt="X"></a>
+        <a href="#"><img src="facebook.png" alt="Facebook"></a>
       </div>
     </div>
   </div>

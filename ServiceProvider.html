@@ -3,10 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-theme");
+    }
+});
+
+
+window.onload = function() {
+    displayServices();
+};
+
+function displayServices() {
+ let servicesBox = document.querySelector('.Services-box');
+
+        let header = servicesBox.querySelector('h3');
+servicesBox.innerHTML = '';
+     servicesBox.appendChild(header);
+    
+    let saved = localStorage.getItem('providerServices');
+    let services = [];
+    if (saved) {
+        services = JSON.parse(saved);
+    }    
+
+for (let i = 0; i < services.length; i++) {
+         let serviceElement = document.createElement('p');
+    serviceElement.innerHTML = (i + 1) + '- ' + services[i].name;
+         servicesBox.appendChild(serviceElement);
+    }
+}
+
+
+
+
+
+
+    </script>
     <title>Service Provider Dashboard</title>
 <link rel="stylesheet" href="style.css">
 
     <style>
+
+
+
+
+
+
+
+
+body.dark-theme .Services-box {
+    background-color: #2b2b2b;   
+    border: 1px solid #555;      
+    color: #e6e6e6;              
+    box-shadow: 0 0 12px rgba(0,0,0,0.5); 
+}
+
+
+body.dark-theme .Services-box h3 {
+    color: #f0f0f0;
+    border-bottom: 1px solid #777;
+}
+
+
+body.dark-theme .Services-box p {
+    color: #ddd;
+}
+
+
+body.dark-theme .ProviderPic {
+    background: #444; 
+    color: #e6e6e6;
+}
+
+
+
+
+
+
+body.dark-theme .title-with-lines {
+    color: #E3C99A; 
+}
+
+
+
+
+
+body.dark-theme #links a {
+    color: #ddd !important;
+}
+
+
+body.dark-theme #links a:hover {
+    color: #c7a34b !important; 
+}
+
 
 
 .title-with-lines{
@@ -126,21 +219,24 @@ color: #49361d;
   font-size: 18px;
   font-weight: 500;
   transition: color 0.3s ease, text-decoration 0.3s ease;
+    text-decoration: none;
+
+  
 }
 
 
 #links a:link {
-  color: #49361d; 
+  color: #222; 
 }
 
 #links a:visited {
-  color: #49361d; 
+  color: #222; 
 }
 
 
 #links a:hover {
   color: #c7a34b; 
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 
@@ -178,7 +274,7 @@ color: #49361d;
   <header class="site-header">
         <div class="container nav">
             <div class="logo-area">
-                 <img src="/imgs/logo2.png" alt="Design Sphere logo">
+                 <img src="desgin_sphere_logoedited-removebg-png.png" alt="Design Sphere logo">
                  <h1 class="site-name">
                      <span class="black">Design</span><span class="gold">Sphere</span>
                  </h1>
@@ -207,7 +303,7 @@ color: #49361d;
 
 <nav class="breadcrumbs" aria-label="Breadcrumbs">
         <ol>
-           <li><a href="" >home page</a></li>
+           <li><a href="index.html" >home page</a></li>
                <li  aria-current="page" ><a href ="ServiceProvider.html" class="current"> Provider's Dashboard </a> </li>
         </ol>
     </nav>
@@ -266,7 +362,7 @@ color: #49361d;
   <div class="footer-container">
     <div class="footer-left">
       <h3>Contact Us</h3>
-      <p>📞 +966 000000000</p>
+      <p>📞 +966 565212266</p>
       <p>✉️ info@designsphere.com</p>
     </div>
 
@@ -277,9 +373,9 @@ color: #49361d;
     <div class="footer-right">
       <h3>Follow Us</h3>
       <div class="social-icons">
-        <a href="#"><img src="/imgs/instagram.png" alt="Instagram"></a>
-        <a href="#"><img src="/imgs/X.png" alt="X"></a>
-        <a href="#"><img src="/imgs/Facebook.png" alt="Facebook"></a>
+        <a href="#"><img src="instagram.png" alt="Instagram"></a>
+        <a href="#"><img src="X.png" alt="X"></a>
+        <a href="#"><img src="facebook.png" alt="Facebook"></a>
       </div>
     </div>
   </div>
