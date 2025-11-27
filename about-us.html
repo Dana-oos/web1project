@@ -187,6 +187,72 @@ section.join-form textarea {
 
 
 
+
+/*dark theme*/
+
+
+
+
+
+body.dark-theme section.team h2 {
+    color: #e6d8c0;
+}
+
+
+body.dark-theme section.team div.member h4 a {
+    color: #ddd;
+}
+
+body.dark-theme section.team div.member h4 a:hover {
+    color: #e3c99a;
+}
+
+
+
+body.dark-theme section.join-form {
+    background-color: #2b2b2b;
+    color: #eee;
+    border: 1px solid #555;
+}
+
+body.dark-theme section.join-form h2 {
+    color: #e3c99a;
+    border-bottom: 1px solid #666;
+}
+
+
+body.dark-theme section.join-form label {
+    color: #ddd;
+}
+
+
+body.dark-theme section.join-form input,
+body.dark-theme section.join-form textarea {
+    background-color: #1f1f1f;
+    border: 1px solid #777;
+    color: #eee;
+}
+
+body.dark-theme section.join-form input::placeholder,
+body.dark-theme section.join-form textarea::placeholder {
+    color: #aaa;
+}
+
+
+body.dark-theme .upload-icon img {
+    filter: brightness(0.9) drop-shadow(0 0 3px #e6d8c0);
+}
+
+
+body.dark-theme section.join-form button:hover {
+    background-color: #a88a47;
+}
+
+
+
+
+
+
   </style>
 
 
@@ -209,7 +275,7 @@ section.join-form textarea {
             <nav class="main-nav" aria-label="Primary">
 
                  <a href="index.html" >Home</a>
-                 <a href="services.html">Services</a>
+                 <a href="Services.html">Services</a>
                  <a href="customerDashboard.html">Customer Dashboard</a>
                  <a href="ServiceProvider.html">Provider Dashboard</a>
                  <a href="about-us.html" class="active">About Us</a>
@@ -232,7 +298,9 @@ section.join-form textarea {
     <nav class="breadcrumbs" aria-label="breadcrumbs">
         <ol>
            <li><a href="index.html" >home page</a></li>
-             <li class="current" aria-current="page">About us</li>
+             <li ><a  class="current" href ="about-us.html" aria-current="page" >About us</a></li>
+
+
         </ol>
         </nav> 
 
@@ -283,12 +351,12 @@ section.join-form textarea {
 
       <div class="field">
         <label for="name">Name :</label>
-        <input type="text" id="name" placeholder="Enter your name" required>
+        <input type="text" id="name" placeholder="Enter your name" >
       </div>
 
       <div class="field">
         <label for="email">Email :</label>
-        <input type="email" id="email" placeholder="Enter your email" required>
+        <input type="email" id="email" placeholder="Enter your email" >
       </div>
 
       <div class="field">
@@ -303,17 +371,17 @@ section.join-form textarea {
 
   <div class="field">
     <label for="skills">Skills :</label>
-    <textarea id="skills" rows="3" placeholder="Enter your skills" required></textarea>
+    <textarea id="skills" rows="3" placeholder="Enter your skills" ></textarea>
   </div>
 
   <div class="field">
     <label for="experience">Area of Expertise:</label>
-    <textarea id="experience" rows="3" placeholder="Enter your area of expertise" required></textarea>
+    <textarea id="experience" rows="3" placeholder="Enter your area of expertise" ></textarea>
   </div>
 
   <div class="field">
     <label for="education">Education :</label>
-    <textarea id="education" rows="3" placeholder="Enter your education" required></textarea>
+    <textarea id="education" rows="3" placeholder="Enter your education" ></textarea>
   </div>
 
 </div>
@@ -327,7 +395,7 @@ section.join-form textarea {
 
   <div class="field">
     <label for="photo" class ="upload-icon">Upload Photo :<img src="upload.svg" alt="Upload"></label>
-    <input type="file" id="photo" accept="image/*" >
+    <input type="file" id="photo"  >
     
   </div>
 
@@ -369,6 +437,65 @@ section.join-form textarea {
   </div>
 </footer>
 
+<script>
+document.querySelector("form").addEventListener("submit", function(e) {
+    e.preventDefault();  
+
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let birth = document.getElementById("birth").value;
+    let skills = document.getElementById("skills").value.trim();
+    let experience = document.getElementById("experience").value.trim();
+    let education = document.getElementById("education").value.trim();
+    let message = document.getElementById("message").value.trim();
+    let photo = document.getElementById("photo").files[0];
+
+
+
+   
+if (!name || !email || !birth || !skills || !experience || !education || !message) {
+    alert("Please fill in all fields.");
+    return;
+}
+
+
+if (!photo) {
+    alert("Please upload a photo.");
+    return;
+}
+
+    
+    if (/^[0-9]/.test(name)) {
+        alert("Name cannot start with a number.");
+        return;
+    }
+
+    if (!photo.type.startsWith("image/")) {
+        alert("Photo must be an image file.");
+        return;
+    }
+    
+    let maxDate = new Date("2008-12-31");
+    let userDate = new Date(birth);
+
+    if (userDate > maxDate) {
+        alert("Date of Birth must not be after 2008.");
+        return;
+    }
+
+    
+    alert("Your application has been submitted successfully! Thank you, " + name + ".");
+    e.target.submit();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-theme");
+    }
+});
+
+
+</script>
 
 
 

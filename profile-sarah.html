@@ -6,6 +6,16 @@
     <title>Sarah Aljuraybah Profile</title>
     <link href="style.css" rel="stylesheet">
 
+
+       <script>
+document.addEventListener("DOMContentLoaded", function () {
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-theme");
+    }
+});
+</script>
+
+
     <style>
       
 
@@ -109,6 +119,44 @@ table dd {
 }
 
 
+/*dark theme*/ 
+
+
+body.dark-theme table {
+     background-color: #2c2c2c;    
+    border-color: #444;            
+    color: #eee;
+}
+
+body.dark-theme th {
+    background-color: #8f774e;     
+    color: #fff;                   
+    border: 1px solid #555;
+}
+
+
+body.dark-theme td {
+    background-color: #1f1f1f;     
+    color: #eee;                  
+    border: 1px solid #d7d7d7;
+}
+
+
+
+body.dark-theme table ul.outer,
+body.dark-theme table ul.inner {
+     color: #eee;
+}
+
+body.dark-theme table ul.inner li,
+body.dark-theme table ul.outer li {
+     color: #eee;
+}
+
+
+body.dark-theme table dl {
+    color: #eee;
+}
 
 
 
@@ -131,7 +179,7 @@ table dd {
             <nav class="main-nav" aria-label="Primary">
 
                  <a href="index.html" >Home</a>
-                 <a href="services.html">Services</a>
+                 <a href="Services.html">Services</a>
                  <a href="customerDashboard.html">Customer Dashboard</a>
                  <a href="ServiceProvider.html">Provider Dashboard</a>
                  <a href="about-us.html" class="active">About Us</a>
@@ -150,9 +198,11 @@ table dd {
 
         <nav class="breadcrumbs" aria-label="breadcrumbs">
         <ol>
-           <li><a href="index.html" >Home Page</a></li>
+           <li><a href="index.html" >home page</a></li>
              <li ><a href="about-us.html">About Us</a></li>
-             <li class="current" aria-current="page">Sarah Aljuraybah Profile</li>
+             <li > <a  class="current" href ="profile-sarah.html" aria-current="page" >Sarah Aljuraybah Profile</a>
+</li>
+
         </ol>
         </nav>
 
@@ -267,7 +317,7 @@ table dd {
   <div class="footer-container">
     <div class="footer-left">
       <h3>Contact Us</h3>
-      <p>📞 +966 000000000</p>
+      <p>📞 +966 565212266</p>
       <p>✉️ info@designsphere.com</p>
     </div>
 
