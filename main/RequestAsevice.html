@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>Design Sphere</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .title-with-lines{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 16px;
+          font-weight: 600;
+          color: #49361d;
+        }
+
+        .title-with-lines::before,
+        .title-with-lines::after{
+          content: "";
+          flex: 1;
+          border-bottom: 1px solid #C5A572;
+          height: 0;
+        }
+
+        .divider {
+          width: 99%;
+          margin: 30px auto;
+          border: none;
+          border-top: 1px solid #C5A572;
+          opacity: 0.9;
+          margin-top:100px;
+        }
+
+        .requestForm{
+          width:40%;
+          margin: 20px auto;
+          display:flex;
+          flex-direction: column;
+          gap:25px;
+          margin-left:100px;
+          margin-top: 50px;
+        }
+        .form-row{
+          display:flex;
+          justify-content: space-between;
+          gap:20px;
+        }
+        .form-group{
+          display:flex;
+          flex-direction: column;
+          width:50%;
+        }
+
+        label{
+          color: #491d26;
+          margin-bottom: 5px;
+        }
+        input, select{
+          padding:8px;
+          border:1px solid #49361d;
+          border-radius: 5px;
+        }
+
+        #dueDate {
+          position: relative;
+          left:250px;
+        }
+        #descriptionBox {
+          position: relative;
+          left:250px;
+        }
+        #dropDownbox {
+          position: relative;
+          left:160px;
+          top: 30px;
+        }
+        #nameBox{
+          position: relative;
+          left:160px;
+        }
+
+        button.submit {
+          display: block;
+          margin-top: 50px;
+          margin-left: auto;
+          margin-right:-100px;
+          background-color: #c7b291;
+          color: #49361d;
+          border: 1px solid #49361d;
+          padding: 7px 35px;
+          border-radius: 20px;
+          font-size: 16px;
+          font-weight: 600;
+          box-shadow: 0 10px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        button.submit:hover {
+          background-color: #a88a47;
+        }
+
+       
+        input.error, select.error {
+          border-color: #c0392b;
+          box-shadow: 0 0 0 2px rgba(192,57,43,0.25);
+        }
+
+      
+        #requestsTitle{
+          display:none;
+          margin-top: 40px;
+        }
+
+        .requests-display{
+          max-width: 90%;
+          margin: 20px auto 0;
+          display:flex;
+          flex-wrap:wrap;
+          gap:24px;
+          justify-content:flex-start;
+        }
+
+        .request-card{
+          flex:0 0 280px;
+          background-color:#fff7e6;
+          border:1px solid #c5a572;
+          border-radius:12px;
+          padding:14px 18px;
+          color:#49361d;
+          box-shadow:0 6px 12px rgba(0,0,0,0.12);
+        }
+
+        .request-card h3{
+          margin:0 0 10px 0;
+          font-size:18px;
+          font-weight:600;
+          color:#c5a572;
+        }
+
+        .request-card p{
+          margin:4px 0;
+          font-size:14px;
+        }
+
+        .request-card span.label{
+          font-weight:600;
+        }
+
+        
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            display: none;           
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+
+        .popup-box {
+            background-color: #fff7e6;
+            border: 2px solid #c5a572;
+            border-radius: 18px;
+            padding: 24px 32px;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+            color: #49361d;
+            animation: popupFadeZoom 0.3s ease-out;
+        }
+
+        .popup-icon {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .popup-title {
+            margin: 0 0 8px 0;
+            font-size: 22px;
+            color: #c5a572;
+        }
+
+        .popup-message {
+            margin: 0 0 14px 0;
+        }
+
+        .popup-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .popup-buttons button {
+            padding: 7px 25px;
+            border-radius: 18px;
+            border: 1px solid #49361d;
+            background-color: #c7b291;
+            color: #49361d;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+
+        .popup-buttons button:hover {
+            background-color: #a88a47;
+        }
+
+        @keyframes popupFadeZoom {
+            from { opacity: 0; transform: scale(0.8); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+         body.dark-theme .title-with-lines{
+          color: #E3C99A;
+         }
+            body.dark-theme label{
+          color: #ddd;
+        }
+       
+body.dark-theme .popup-box {
+    background-color: #2b2b2b !important;   
+    border-color: #c5a572 !important;       
+    color: #e6d5b8 !important;              
+}
+
+
+body.dark-theme .popup-box .popup-title {
+    color: #d8b46a !important; 
+}
+
+
+body.dark-theme .popup-box .popup-message {
+    color: #c8b79a !important; 
+}
+
+
+body.dark-theme .popup-box button {
+    background-color: #c7b291 !important;
+    color: #3c2a17 !important;        
+    border-color: #3c2a17 !important;
+}
+
+body.dark-theme .popup-box button:hover {
+    background-color: #a88a47 !important;
+}
+
+
+body.dark-theme .popup-box .popup-icon {
+    color: #d8b46a !important; 
+}
+
+
+
+body.dark-theme .request-card {
+    background-color: #2b2b2b !important;
+    border-color: #c5a572 !important;
+    color: #e6d5b8 !important;  
+}
+
+
+body.dark-theme .request-card h3 {
+    color: #d8b46a !important; 
+}
+
+
+body.dark-theme .request-card .label {
+    color: #e6d5b8 !important;
+    font-weight: 600;
+}
+
+
+body.dark-theme .request-card p {
+    color: #ffffff !important;  
+}
+
+    </style>
+</head>
+<body>
+    
+<header class="site-header">
+    <div class="container nav">
+        <div class="logo-area">
+             <img src="desgin_sphere_logoedited-removebg-png.png" alt="Design Sphere logo">
+             <h1 class="site-name">
+                 <span class="black">Design</span><span class="gold">Sphere</span>
+             </h1>
+        </div>
+        <nav class="main-nav" aria-label="Primary">
+             <a href="index.html">Home</a>
+             <a href="Services.html">Services</a>
+             <a href="customerDashboard.html" class="active">Customer Dashboard</a>
+             <a href="ServiceProvider.html">Provider Dashboard</a>
+             <a href="about-us.html">About Us</a>
+        </nav>
+
+        <div class="nav-actions">
+             <input id="site-search" type="search" placeholder="Search…">
+             <a class="avatar" href="#" aria-label="Profile">
+                <span aria-hidden="true">👤</span>
+             </a>
+        </div>
+    </div>
+</header>
+
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+    <ol>
+        <li><a href="index.html">home page</a></li>
+        <li><a href="customerDashboard.html">Customer's Dashobard</a></li>
+        <li><a class="current" href="RequestAsevice.html" aria-current="page">Request A Sevice</a></li>
+    </ol>
+</nav>
+
+<h2 class="title-with-lines"><em>Please fill in the following information </em></h2>
+
+<form class="requestForm" id="requestForm" action="RequestAsevice.html" method="get">
+  <div class="form-row" id="nameBox">
+    <div class="form-group">
+      <label for="name">Name : </label>
+      <input type="text" id="name" name="name" placeholder="Enter your full name please" required>
+    </div>
+
+    <div class="form-group" id="dueDate">
+      <label for="due-date"> Due Date :</label>
+      <input type="date" id="due-date" name="due-date" required>
+    </div>
+  </div>
+
+  <div class="form-row" id="dropDownbox">
+    <div class="form-group">
+      <label for="services"> Chooese a srevice : </label>
+      <select id="services" name="services" required>
+        <option value="" disabled selected hidden>Select A Service</option>
+        <option value="service1">indivsuals Services</option>
+        <option value="service2">Bussines Services</option>
+        <option value="service3">Theme Preview Tool</option>
+      </select>
+    </div>
+
+    <div class="form-group" id="descriptionBox">
+      <label for="description"> Request's Description : </label>
+      <input type="text" id="description" name="description" placeholder="Enter Request Details">
+      <button type="submit" class="submit">Submit</button>
+    </div>
+  </div>
+</form>
+
+
+<h2 id="requestsTitle" class="title-with-lines"><em>Request information</em></h2>
+<div id="requestsDisplay" class="requests-display"></div>
+
+<hr class="divider">
+
+
+<div id="confirmPopup" class="popup-overlay">
+  <div class="popup-box">
+      <div class="popup-icon">✅</div>
+      <h3 class="popup-title">Request sent successfully</h3>
+      <p class="popup-message">
+          Your request has been sent. Would you like to stay on this page to add more requests,
+          or return to your dashboard?
+      </p>
+      <div class="popup-buttons">
+          <button id="stayHereBtn" type="button">Stay here</button>
+          <button id="goDashboardBtn" type="button">Go to dashboard</button>
+      </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>Contact Us</h3>
+      <p>📞 +966 566212266</p>
+      <p>✉️ info@designsphere.com</p>
+    </div>
+
+    <div class="footer-center">
+      <p>© 2025 Design Sphere. All Rights Reserved.</p>
+    </div>
+
+    <div class="footer-right">
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+        <a href="#"><img src="instagram.png" alt="Instagram"></a>
+        <a href="#"><img src="X.png" alt="X"></a>
+        <a href="#"><img src="facebook.png" alt="Facebook"></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- JS:-->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("requestForm");
+    const nameInput = document.getElementById("name");
+    const dueDateInput = document.getElementById("due-date");
+    const serviceSelect = document.getElementById("services");
+    const descriptionInput = document.getElementById("description");
+
+    const popup = document.getElementById("confirmPopup");
+    const stayBtn = document.getElementById("stayHereBtn");
+    const dashBtn = document.getElementById("goDashboardBtn");
+
+    const requestsTitle = document.getElementById("requestsTitle");
+    const requestsDisplay = document.getElementById("requestsDisplay");
+
+    let pendingRequest = null;   
+
+    function clearErrors() {
+        [nameInput, dueDateInput, serviceSelect, descriptionInput].forEach(el => {
+            el.classList.remove("error");
+        });
+    }
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); 
+
+        clearErrors();
+        const errors = [];
+
+        const nameVal = nameInput.value.trim();
+        const dueVal = dueDateInput.value;
+        const serviceVal = serviceSelect.value;
+        const descVal = descriptionInput.value.trim();
+
+      
+        const nameParts = nameVal.split(/\s+/);
+        if (nameParts.length < 2) {
+            errors.push("Name must be a full name (first and last).");
+            nameInput.classList.add("error");
+        }
+        if (/[0-9?!@]/.test(nameVal)) {
+            errors.push("Name must not contain numbers or characters like ?, !, @.");
+            nameInput.classList.add("error");
+        }
+
+       
+        if (!serviceVal) {
+            errors.push("You must select a service.");
+            serviceSelect.classList.add("error");
+        }
+
+        // --- validate due date (at least 5 days from today) ---
+        if (!dueVal) {
+            errors.push("You must select a due date.");
+            dueDateInput.classList.add("error");
+        } else {
+            const today = new Date();
+            today.setHours(0,0,0,0);
+
+            const dueDate = new Date(dueVal + "T00:00:00");
+            const diffMs = dueDate - today;
+            const diffDays = diffMs / (1000 * 60 * 60 * 24);
+
+            if (diffDays < 0) {
+                errors.push("Due date cannot be in the past.");
+                dueDateInput.classList.add("error");
+            } else if (diffDays < 5) {
+                errors.push("Due date is too soon. It must be at least 5 days from today.");
+                dueDateInput.classList.add("error");
+            }
+        }
+
+        // --- validate description length ---
+        if (descVal.length < 100) {
+            errors.push("Request description is very short; it must be at least 100 characters.");
+            descriptionInput.classList.add("error");
+        }
+
+        if (errors.length > 0) {
+            alert("Please fix the following:\n\n- " + errors.join("\n- "));
+            return;
+        }
+
+        // If we reach here, form is VALID
+        const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
+        const serviceText = selectedOption ? selectedOption.textContent.trim() : "";
+
+        pendingRequest = {
+            name: nameVal,
+            dueDate: dueVal.split("-").reverse().join("/"), 
+            service: serviceText,
+            description: descVal
+        };
+
+       
+        popup.style.display = "flex";
+    });
+
+    // stay on page -> add request card and reset form
+    stayBtn.addEventListener("click", function () {
+        if (!pendingRequest) {
+            popup.style.display = "none";
+            return;
+        }
+
+        
+        requestsTitle.style.display = "flex";
+
+        const card = document.createElement("div");
+        card.className = "request-card";
+        card.innerHTML = `
+            <h3>Request information</h3>
+            <p><span class="label">Customer's name:</span> ${pendingRequest.name}</p>
+            <p><span class="label">Service name:</span> ${pendingRequest.service}</p>
+            <p><span class="label">Due date:</span> ${pendingRequest.dueDate}</p>
+            <p><span class="label">Request description:</span> ${pendingRequest.description}</p>
+        `;
+        requestsDisplay.appendChild(card);
+
+        // reset form
+        form.reset();
+      
+        serviceSelect.selectedIndex = 0;
+        clearErrors();
+
+        pendingRequest = null;
+        popup.style.display = "none";
+    });
+
+    // go to dashboard -> redirect, requests disappear
+    dashBtn.addEventListener("click", function () {
+        pendingRequest = null;
+        popup.style.display = "none";
+        window.location.href = "customerDashboard.html";
+    });
+
+   
+    popup.addEventListener("click", function (e) {
+        if (e.target === popup) {
+            popup.style.display = "none";
+        }
+    });
+});
+document.addEventListener("DOMContentLoaded", function () {
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-theme");
+    }
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,493 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Sphere</title>
+     <link rel="stylesheet" href="style.css" >
+     <style>
+
+      .title-with-lines{
+  display: flex;           
+  align-items: center;
+  justify-content: center;
+  gap: 16px;                 
+  font-weight: 600;
+color: #49361d;
+}
+
+.title-with-lines::before,
+.title-with-lines::after{
+  content: "";
+  flex: 1;                  
+  border-bottom: 1px solid #C5A572;   
+  height: 0;
+ 
+}
+
+
+.divider {
+  width: 99%;               
+  margin: 30px auto;        
+  border: none;
+  border-top: 1px solid #C5A572;  
+  opacity: 0.9; 
+  padding: 50px;       
+}
+ .feedbackForm {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+   color: #49361d;
+  font-size:1.05rem;
+}
+
+.title-with-lines {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-weight: 600;
+  color: #49361d;
+  text-align: center;
+}
+
+.title-with-lines::before,
+.title-with-lines::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #C5A572;
+  height: 0;
+}
+
+.feedbackForm {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap:5px;
+  color: #49361d;
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+ 
+
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  gap:5px;
+padding-top: 30px;
+padding-bottom: 30px;
+}
+
+label {
+  white-space: nowrap;
+  font-weight: 500;
+   color: #491d26;
+}
+
+input[type="text"],
+select {
+  width: 260px;
+  padding:10px;
+  border: 1px solid #49361d;
+  border-radius: 5px;
+}
+
+.wide input {
+  width:250px; 
+
+}
+
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: start;
+  gap: 5px;
+
+}
+
+.star-rating input {
+  display: none;
+  
+}
+
+.star-rating label {
+  font-size: 32px;
+  color: #ccc;
+  cursor: pointer;
+  margin-bottom: 30px;
+}
+
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #C5A572;
+}
+
+button.submit {
+  display: block;
+  margin-top: 20px;      
+  margin-left: auto;     
+  margin-right: 30px;
+  background-color: #c7b291;
+  color: #49361d;
+  border: 1px solid #49361d;
+  padding: 7px 35px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 10px 8px rgba(0, 0, 0, 0.15);
+}
+
+button.submit:hover {
+  background-color: #a88a47;
+}
+
+/* ---------- Feedback popup ---------- */
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+/* Box */
+.popup-box {
+    background-color: #fff7e6; 
+    border: 2px solid #c5a572;
+    border-radius: 18px;
+    padding: 24px 32px;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+    color: #49361d;
+
+    animation: popupFadeZoom 0.3s ease-out;
+}
+
+/* Icon */
+.popup-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+/* Title */
+.popup-title {
+    margin: 0 0 8px 0;
+    font-size: 22px;
+    color: #c5a572;
+}
+
+/* Message */
+.popup-message {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+}
+
+/* Color variations */
+.popup-box.good {
+    border-color: #846508;  
+}
+
+.popup-box.bad {
+    border-color: #846508; 
+}
+
+/* Button */
+.popup-box button {
+    margin-top: 10px;
+    padding: 7px 28px;
+    border-radius: 20px;
+    border: 1px solid #49361d;
+    background-color: #c7b291;
+    color: #49361d;
+    font-weight: 600;
+    cursor: pointer;
+}
+.popup-box button:hover {
+    background-color: #a88a47;
+}
+
+/* Animation */
+@keyframes popupFadeZoom {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+ body.dark-theme .title-with-lines{
+          color: #E3C99A
+         }
+            body.dark-theme label{
+          color: #ddd;
+        }
+        
+
+
+body.dark-theme .popup-overlay {
+    background: rgba(0, 0, 0, 0.55);
+}
+
+
+body.dark-theme .popup-box {
+    background-color: #2b2b2b !important;   
+    border-color: #c5a572 !important;     
+    color: #e6d5b8 !important;             
+}
+
+
+body.dark-theme .popup-box .popup-title {
+    color: #d8b46a !important;            
+}
+
+
+body.dark-theme .popup-box .popup-message {
+    color: #c8b79a !important;
+}
+
+body.dark-theme .popup-box button {
+    background-color: #c7b291 !important;
+    color: #3c2a17 !important;             
+    border-color: #3c2a17 !important;
+}
+
+body.dark-theme .popup-box button:hover {
+    background-color: #a88a47 !important;
+}
+
+
+body.dark-theme .popup-box .popup-icon {
+    color: #d8b46a !important;
+}
+
+
+
+
+     </style>
+</head>
+<body>
+       <header class="site-header">
+        <div class="container nav">
+            <div class="logo-area">
+                 <img src="desgin_sphere_logoedited-removebg-png.png" alt="Design Sphere logo">
+                 <h1 class="site-name">
+                     <span class="black">Design</span><span class="gold">Sphere</span>
+                 </h1>
+            </div>
+            <nav class="main-nav" aria-label="Primary">
+
+                 <a href="index.html">Home</a>
+                 <a href="Services.html">Services</a>
+                 <a href="customerDashboard.html" class="active">Customer Dashboard</a>
+                 <a href="ServiceProvider.html">Provider Dashboard</a>
+                 <a href="about-us.html">About Us</a>
+
+            </nav>
+
+             <div class="nav-actions">
+                 <input id="site-search" type="search" placeholder="Search…" >
+            
+                 <a class="avatar" href="#" aria-label="Profile">
+                 <span aria-hidden="true">👤</span>
+                 </a>
+             </div>
+        </div>
+</header>
+
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+        <ol>
+            <li><a href="index.html" >home page</a></li>
+            <li> <a href="customerDashboard.html">Customer's Dashobard</a></li>
+             
+            <li ><a  class="current" href ="ServiceEvaluation.html" aria-current="page" >Service Evaluation</a>
+</li>
+        </ol>
+    </nav>
+
+    <h2 class="title-with-lines"><em> We would love to hear your feedback !  </em></h2>
+
+
+<form class="feedbackForm" action="ServiceEvaluation.html" method="get">
+
+  <div class="form-row top-row">
+    <div class="form-group">
+      <label for="service" style="margin-bottom:30px" >Please select a service :</label>
+      <select id="service" name="service" required style="margin-bottom: 30px">
+        <option value="">Select A Service</option>
+        <option value="individual">Individuals Services</option>
+        <option value="business">Business Services</option>
+        <option value="theme">Theme Preview Tool</option>
+      </select>
+    </div>
+
+ <div class="form-group" >
+  <label for="star5" style ="margin-bottom: 20px" > Rate :</label>
+  <span class="star-rating">
+    <input type="radio" id="star5" name="rating" value="5">
+    <label for="star5">★</label>
+    <input type="radio" id="star4" name="rating" value="4">
+    <label for="star4">★</label>
+    <input type="radio" id="star3" name="rating" value="3">
+    <label for="star3">★</label>
+    <input type="radio" id="star2" name="rating" value="2">
+    <label for="star2">★</label>
+    <input type="radio" id="star1" name="rating" value="1">
+    <label for="star1">★</label>
+  </span>
+</div>
+
+  </div>
+
+
+  <div class="form-row">
+    <div class="form-group wide">
+      <label for="comments"  >Additional Comments :</label>
+      <input type="text" id="comments" name="comments" placeholder="Enter Comments" required>
+    </div>
+  </div>
+   <button type="submit" class="submit">Submit</button>
+</form>
+
+<hr class="divider">
+
+
+
+<div id="feedbackPopup" class="popup-overlay">
+  <div class="popup-box" id="popupBox">
+    <div class="popup-icon" id="popupIcon">🙂</div>
+    <h3 class="popup-title" id="popupTitle">Thank you!</h3>
+    <p class="popup-message" id="popupText"></p>
+
+    <button type="button" id="popupOk">OK</button>
+  </div>
+</div>
+
+
+<div id="ratingRequiredPopup" class="popup-overlay">
+  <div class="popup-box">
+      <div class="popup-icon">⭐</div>
+      <h3 class="popup-title">Rating Required</h3>
+      <p class="popup-message">Please select a star rating before submitting.</p>
+      <button id="ratingPopupOk" type="button">OK</button>
+  </div>
+</div>
+
+
+
+
+ <footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>Contact Us</h3>
+      <p>📞 +966 565212266</p>
+      <p>✉️ info@designsphere.com</p>
+    </div>
+
+    <div class="footer-center">
+      <p>© 2025 Design Sphere. All Rights Reserved.</p>
+    </div>
+
+    <div class="footer-right">
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+        <a href="#"><img src="instagram.png" alt="Instagram"></a>
+        <a href="#"><img src="X.png" alt="X"></a>
+        <a href="#"><img src="facebook.png" alt="Facebook"></a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.querySelector(".feedbackForm");
+
+    
+    const mainPopup = document.getElementById("feedbackPopup");
+    const popupBox = document.getElementById("popupBox");
+    const popupIcon = document.getElementById("popupIcon");
+    const popupTitle = document.getElementById("popupTitle");
+    const popupText = document.getElementById("popupText");
+    const popupOk = document.getElementById("popupOk");
+
+   
+    const ratingPopup = document.getElementById("ratingRequiredPopup");
+    const ratingPopupOk = document.getElementById("ratingPopupOk");
+
+    if (!form) return;
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); 
+
+        const service = document.getElementById("service").value.trim();
+        const comments = document.getElementById("comments").value.trim();
+        const ratingSelected = form.querySelector('input[name="rating"]:checked');
+
+        
+        if (!ratingSelected) {
+            ratingPopup.style.display = "flex";
+            ratingPopupOk.onclick = () => {
+                ratingPopup.style.display = "none";
+            };
+            return; 
+        }
+
+       
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+       
+        const ratingValue = Number(ratingSelected.value);
+        const good = ratingValue >= 3;
+
+        if (good) {
+            popupIcon.textContent = "😊";
+            popupTitle.textContent = "Thank you!";
+            popupText.textContent = "We're glad you enjoyed our service.";
+        } else {
+            popupIcon.textContent = "😔";
+            popupTitle.textContent = "We're sorry!";
+            popupText.textContent = "We appreciate your feedback & will improve!";
+        }
+
+        popupBox.classList.remove("good", "bad");
+        popupBox.classList.add(good ? "good" : "bad");
+
+        mainPopup.style.display = "flex";
+
+        popupOk.onclick = function () {
+            window.location.href = "customerDashboard.html";
+        };
+    });
+});
+document.addEventListener("DOMContentLoaded", function () {
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-theme");
+    }
+});
+
+</script>
+
+
+
+
+
+</body>
+</html>

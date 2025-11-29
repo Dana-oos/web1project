@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>Design Sphere</title>
+    <link rel="stylesheet" href="style.css">
+<style>
+.title-with-lines{
+  display: flex;            
+  align-items: center;
+  justify-content: center;
+  gap: 16px;                 
+  font-weight: 600;
+  color: #49361d;
+}
+
+.title-with-lines::before,
+.title-with-lines::after{
+  content: "";
+  flex: 1;                  
+  border-bottom: 1px solid #C5A572;  
+  height: 0;
+}
+
+.divider {
+  width: 99%;               
+  margin: 30px auto;        
+  border: none;
+  border-top: 1px solid #C5A572;  
+  opacity: 0.9;     
+}
+
+.RequestsContainer{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 40px;
+  gap:40px;
+}
+.RequestBox{
+  width:300px;
+}
+
+.vertical-divider{
+  width:2px;
+  background-color: #C5A572;
+  height:260px;
+  align-self: center;
+}
+.RequestInfo{
+  list-style:none;
+  padding-left:0px;
+  margin-left: 0px;
+}
+.RequestInfo li {
+  display:flex;
+  text-align: left;
+  gap:8px;
+  margin:20px 0;
+}
+
+.RequestInfo img{
+  width:30px;
+  height: 30px;
+}
+.RequestInfoL{
+  list-style:none;
+  padding-left:0px;
+  margin-left:-300px;
+}
+.RequestInfoL li{
+  display:flex;
+  text-align: left;
+  gap:8px;
+  margin:20px 0;
+  margin-left: -20px;
+}
+.RequestInfoL img{
+  width:30px;
+  height: 30px;
+}
+.links a{
+  text-decoration: none;
+  color: #222;
+  font-weight: 500;
+  transition: 0.2s;
+}
+.links li{
+  margin-bottom: 20px;
+}
+.links a:hover,
+.links a.active {
+  color: #c7a34b;
+}
+.service1pic{
+  display:block;
+  width:230px;
+  height:300px;
+  margin:20px auto 0;
+  border-radius: 6px;
+  margin-top:-280px;
+  transition: 0.3s ease;
+}
+.service2pic{
+  display:block;
+  width:240px;
+  height:310px;
+  margin:20px auto 0;
+  border-radius: 6px;
+  margin-top:-280px;
+  margin-left: 350px;
+  transition: 0.3s ease;
+}
+.service1pic:hover{
+  filter: none;
+  transform: scale(1.15);
+}
+.service2pic:hover{
+  filter: none;
+  transform: scale(1.15);
+}
+
+/* extra functionality */
+button.submit {
+  display: block;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: 120px;
+  padding: 7px 35px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #49361d;
+  background: linear-gradient(135deg, #d4b991, #c0a271);
+  background-size: 200% 200%;
+  border: 1px solid #49361d;
+  box-shadow: 0 8px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease;
+  animation: none;
+}
+button.submit:hover{
+  background-position: right center;
+  background: linear-gradient(135deg, #c5a572, #e1ccaa, #b08a56);
+  background-size: 200% 200%;
+  animation: velvet 3s ease infinite;
+  color: #fffaf0;
+  transform: scale(1.05);
+  box-shadow: 0 10px 10px rgba(197, 165, 114, 0.4);
+}
+.RequestBox h4{
+color:#49361d
+}
+@keyframes velvet {
+  0% { background-position: left center; }
+  50% { background-position: right center; }
+  100% { background-position: left center; }
+}
+
+/* ---------- Cancel confirmation popup ---------- */
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    display: none;                /* hidden by default */
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.popup-box {
+    background-color: #fff7e6;
+    border: 2px solid #c5a572;
+    border-radius: 18px;
+    padding: 24px 32px;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+    color: #49361d;
+    animation: popupFadeZoom 0.3s ease-out;
+}
+
+.popup-icon {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.popup-title {
+    margin: 0 0 8px 0;
+    font-size: 22px;
+    color: #c5a572;
+}
+
+.popup-message {
+    margin: 0 0 14px 0;
+}
+
+/* Buttons row */
+.popup-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.popup-buttons button {
+    padding: 7px 25px;
+    border-radius: 18px;
+    border: 1px solid #49361d;
+    background-color: #c7b291;
+    color: #49361d;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+}
+
+.popup-buttons button:hover {
+    background-color: #a88a47;
+}
+
+@keyframes popupFadeZoom {
+    from { opacity: 0; transform: scale(0.8); }
+    to   { opacity: 1; transform: scale(1); }
+}
+body.dark-theme p,
+    body.dark-theme a ,body.dark-theme h2 , body.dark-theme ul {
+      color: #ddd;
+    }
+   body.dark-theme .RequestBox h4{
+
+color: #ddd;
+   }
+  
+body.dark-theme .popup-box {
+    background-color: #2b2b2b !important;  
+    border-color: #c5a572 !important;     
+    color: #e6d5b8 !important;               
+}
+
+
+body.dark-theme .popup-box .popup-title {
+    color: #d8b46a !important; 
+}
+
+
+body.dark-theme .popup-box .popup-message {
+    color: #c8b79a !important;  
+}
+
+
+body.dark-theme .popup-box button {
+    background-color: #c7b291 !important;
+    color: #3c2a17 !important;        
+    border-color: #3c2a17 !important;
+}
+
+body.dark-theme .popup-box button:hover {
+    background-color: #a88a47 !important;
+}
+
+ body.dark-theme .title-with-lines{
+          color: #E3C99A
+         }
+    
+  
+</style>
+</head>
+<body>
+  
+<header class="site-header">
+    <div class="container nav">
+        <div class="logo-area">
+            <img src="desgin_sphere_logoedited-removebg-png.png" alt="Design Sphere logo">
+            <h1 class="site-name">
+                <span class="black">Design</span><span class="gold">Sphere</span>
+            </h1>
+        </div>
+        <nav class="main-nav" aria-label="Primary">
+            <a href="index.html">Home</a>
+            <a href="Services.html">Services</a>
+            <a href="customerDashboard.html" class="active">Customer Dashboard</a>
+            <a href="ServiceProvider.html">Provider Dashboard</a>
+            <a href="about-us.html">About Us</a>
+        </nav>
+
+        <div class="nav-actions">
+            <input id="site-search" type="search" placeholder="Search…">
+            <a class="avatar" href="#" aria-label="Profile">
+                <span aria-hidden="true">👤</span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+    <ol>
+        <li><a href="index.html" >home page</a></li>
+        <li><a class="current" href="customerDashboard.html" aria-current="page">Customer's Dashobard</a></li>
+    </ol>
+</nav>
+
+<h2 class="title-with-lines"><em>Previous Services Requests</em></h2>
+
+<div class="RequestsContainer">    
+
+    <!-- FIRST REQUEST (provided) -->
+    <div class="RequestBox">
+        <h4 style=" margin-left: -200px;">Request Number: 001 </h4><br>
+        <ul class="RequestInfoL">
+            <li><img src="hashtag.png" alt="service name">Service Name : Individuals Consultation</li>
+            <li><img src="calender.png" alt="calender">Date of Request : 13/1/2025 </li>
+            <li><img src="price.png" alt="price">cost : 3000 SAR </li>
+            <li><img src="icons8-check-mark4-ezgif.com-gif-maker.gif" alt="status">status : provided</li>
+        </ul>
+        <img src="service1.jpg" alt="service picture" class="service1pic">
+    </div>
+
+    <div class="vertical-divider"></div>
+
+    <!-- SECOND REQUEST (pending, can be cancelled) -->
+    <div class="RequestBox">
+        <h4 style="margin-left: 100px;">Request Number: 002 </h4><br>
+        <ul class="RequestInfo">
+            <li><img src="hashtag.png" alt="service name">Service Name : Business Consultation</li>
+            <li><img src="calender.png" alt="calender">Date of Request : 22/12/2024</li>
+            <li><img src="price.png" alt="price">cost : 4200 SAR </li>
+            <li>
+                <img class="status-icon" src="hourglass-unscreen (1).gif" alt="status">
+                status : <span class="status-text">pending</span>
+            </li>
+        </ul>
+        <img src="service2.jpg" alt="service picture" class="service2pic">
+    </div>
+</div>
+
+<!-- Cancel button for the pending request -->
+<button type="button" class="cancel-btn submit">Cancel</button>
+
+<hr class="divider">
+
+<ul class="links">
+  <li><a href="RequestAsevice.html"><em></em>Request A Service</a></li>
+  <li><a href="ServiceEvaluation.html">Service Evaluation</a></li>
+</ul>
+
+<!-- Cancel confirmation popup -->
+<div id="cancelPopup" class="popup-overlay">
+  <div class="popup-box">
+      <div class="popup-icon">⚠️</div>
+      <h3 class="popup-title">Cancel this request?</h3>
+      <p class="popup-message">Are you sure you want to proceed?</p>
+      <div class="popup-buttons">
+          <button id="cancelNo" type="button">No</button>
+          <button id="cancelYes" type="button">Yes</button>
+      </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>Contact Us</h3>
+      <p>📞 +966 566212266</p>
+      <p>✉️ info@designsphere.com</p>
+    </div>
+
+    <div class="footer-center">
+      <p>© 2025 Design Sphere. All Rights Reserved.</p>
+    </div>
+
+    <div class="footer-right">
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+        <a href="#"><img src="instagram.png" alt="Instagram"></a>
+        <a href="#"><img src="X.png" alt="X"></a>
+        <a href="#"><img src="facebook.png" alt="Facebook"></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- JS: cancel confirmation + status change -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const popup = document.getElementById("cancelPopup");
+    const btnNo = document.getElementById("cancelNo");
+    const btnYes = document.getElementById("cancelYes");
+    const cancelBtn = document.querySelector(".cancel-btn");
+
+    const statusText = document.querySelector(".status-text");
+    const statusIcon = document.querySelector(".status-icon");
+
+    if (!cancelBtn || !popup || !btnNo || !btnYes || !statusText || !statusIcon) {
+        return;
+    }
+
+    
+    cancelBtn.addEventListener("click", function () {
+        popup.style.display = "flex";
+    });
+
+    btnNo.addEventListener("click", function () {
+        popup.style.display = "none";
+    });
+
+    btnYes.addEventListener("click", function () {
+        statusText.textContent = "cancelled";
+        statusIcon.src = "icons8-cancel-unscreen.gif";  
+        statusIcon.alt = "Cancelled";
+
+        popup.style.display = "none";
+    });
+
+  
+    popup.addEventListener("click", function (e) {
+        if (e.target === popup) {
+            popup.style.display = "none";
+        }
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-theme");
+    }
+});
+
+</script>
+
+</body>
+</html>
